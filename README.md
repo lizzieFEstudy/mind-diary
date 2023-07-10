@@ -7,3 +7,6 @@
 - react-redux
 - @reduxjs/toolkit
 - firebase
+- react-query
+- @react-query-firebase/firestore
+- @react-query-firebase/auth
