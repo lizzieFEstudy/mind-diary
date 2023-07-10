@@ -7,7 +7,8 @@ import { useNavigate } from 'react-router-dom';
 const Header = () => {
   const navigate = useNavigate();
   // const user = useAuthUser(["user"], auth);
-  const { isLoading, isError, data } = useAuthUser(['user'], auth);
+  // const query = useAuthUser("user", auth);
+  const { isLoading, isError, data } = useAuthUser('user', auth);
 
   if (isLoading) {
     return <h1>로딩중입니다....!</h1>;
@@ -37,6 +38,9 @@ const Header = () => {
       {data ? (
         <>
           로그인 계정: {data.email} <button onClick={logOut}>로그아웃</button>
+          <div style={{ width: '100px' }}>
+            <img src={data.photoURL} alt="프로필 사진" style={{ width: '100%' }} />
+          </div>
         </>
       ) : (
         <button

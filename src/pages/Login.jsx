@@ -1,9 +1,7 @@
 import { useAuthSignInWithEmailAndPassword } from '@react-query-firebase/auth';
 import { auth } from 'config/firebase';
-// import { signInWithEmailAndPassword } from 'firebase/auth';
 import useInput from 'hooks/useInput';
 import React from 'react';
-// import { QueryClient, useMutation } from 'react-query';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -12,41 +10,26 @@ const Login = () => {
   const [email, onChangeEmailHandler] = useInput();
   const [password, onChangePasswordHandler] = useInput();
 
+  const ERROR_CODE = {
+    'auth/user-not-found': '존재하지 않는 사용자 정보입니다',
+    'auth/wrong-password': '비밀번호가 일치하지 않습니다'
+  };
+
   const mutation = useAuthSignInWithEmailAndPassword(auth, {
+    onSuccess: () => {
+      navigate('/');
+    },
     onError: (error) => {
-      alert(error.code);
-      console.log('useAuthSignInWithEmailAndPassword error => ', error);
-      // alert('Could not sign you in!');
+      // alert(error.code);
+      alert(ERROR_CODE[error.code]);
     }
   });
 
-  // const signIn = async () => {
   const signIn = async (event) => {
     event.preventDefault();
 
     mutation.mutate({ email, password });
-    navigate('/');
-
-    // try {
-    //   const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    //   console.log('user with signIn', userCredential.user);
-    //   navigate('/');
-    // } catch (error) {
-    //   alert('error', error.code);
-    // }
   };
-
-  // const mutation = useMutation(signIn, {
-  //   onSuccess: () => {
-  //     QueryClient.invalidateQueries('currentUser');
-  //     console.log('성공하였습니다.');
-  //   }
-  // });
-
-  // const handleSignInButtonClick = (event) => {
-  //   event.preventDefault();
-  //   mutation.mutate({ email, password });
-  // };
 
   return (
     <>
@@ -60,7 +43,6 @@ const Login = () => {
           <label>비밀번호</label>
           <input type="password" value={password} name="password" onChange={onChangePasswordHandler} required></input>
         </div>
-        {/* <button onClick={handleSignInButtonClick}>로그인</button> */}
         <button onClick={signIn}>로그인</button>
         <Link to="/join">회원가입</Link>
       </form>
