@@ -2,16 +2,25 @@
   "posts": [
     {
       "id": "2893c608-f4dd-4de7-1f9c-c0fc7512b75e",
-      "type": "form01",
+      "type": "POST_FORM01",
+      "date": "2023. 7. 11.",
+      "uid": "8uwWjYJuNfcbolLuJiux1plncs42",
       "item01": "테스트1",
-      "item02": [
-        "상황을 최악으로 인식하기",
-        "긍정적인 상황 최소화하기",
-        "긍정적 생각 걸러내기"
-      ],
+      "item02": ["상황을 최악으로 인식하기", "긍정적인 상황 최소화하기", "긍정적 생각 걸러내기"],
       "item03": "테스트2",
       "item04": "테스트3",
       "item05": "테스트4"
+    },
+    {
+      "id": "c5985502-60df-f1fb-f3e1-5afb19394655",
+      "type": "POST_FORM01",
+      "date": "2023. 7. 11.",
+      "uid": "8uwWjYJuNfcbolLuJiux1plncs42",
+      "item01": "내용1",
+      "item02": ["부정적 확대 해석", "이분법적 사고"],
+      "item03": "내용2",
+      "item04": "내용3",
+      "item05": "내용4"
     }
   ],
   "comments": []

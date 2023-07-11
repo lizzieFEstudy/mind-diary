@@ -1,4 +1,6 @@
+import { useAuthUser } from '@react-query-firebase/auth';
 import { addPost } from 'api/posts';
+import { auth } from 'config/firebase';
 import { POST_FORM01, POST_FORM01_ITEM02 } from 'constants/postForm';
 import useCheckbox from 'hooks/useCheckbox';
 import useInput from 'hooks/useInput';
@@ -21,17 +23,24 @@ const Write = () => {
     }
   });
 
+  const authUser = useAuthUser('user', auth);
+
   const handleSubmitButtonClick = (event) => {
     event.preventDefault();
+
+    let date = new Date();
+    date = date.toLocaleDateString();
 
     const newPost = {
       id: uuid(),
       type: 'form01',
-      item01: item01,
+      date,
+      uid: authUser.data.uid,
+      item01,
       item02: item02CheckList,
-      item03: item03,
-      item04: item04,
-      item05: item05
+      item03,
+      item04,
+      item05
     };
     console.log('newPost', newPost);
 
