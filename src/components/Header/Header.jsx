@@ -1,13 +1,16 @@
 import { useAuthUser } from '@react-query-firebase/auth';
 import { auth } from 'config/firebase';
 import { signOut } from 'firebase/auth';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
+  console.log('✏️리렌더링: HEADER.jsx');
+
   const navigate = useNavigate();
   // const user = useAuthUser(["user"], auth);
   // const query = useAuthUser("user", auth);
+
   const { isLoading, isError, data } = useAuthUser('user', auth);
 
   if (isLoading) {
@@ -37,7 +40,8 @@ const Header = () => {
       <h1>단-데기 마음일기장</h1>
       {data ? (
         <>
-          로그인 계정: {data.email} <button onClick={logOut}>로그아웃</button>
+          {/* 로그인 계정: {data.email} <button onClick={logOut}>로그아웃</button> */}
+          닉네임: {data.displayName} <button onClick={logOut}>로그아웃</button>
           <div style={{ width: '100px' }}>
             <img src={data.photoURL} alt="프로필 사진" style={{ width: '100%' }} />
           </div>

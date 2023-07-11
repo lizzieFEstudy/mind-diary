@@ -10,3 +10,6 @@
 - react-query
 - @react-query-firebase/firestore
 - @react-query-firebase/auth
+- json-server
+- react-uuid
+- axios
