@@ -28,7 +28,7 @@ const useCheckbox = () => {
     checkedItemHandler(value, e.target.checked);
   };
 
-  return [checkedList, checkHandler];
+  return [checkedList, checkHandler, setCheckedList];
 };
 
 export default useCheckbox;

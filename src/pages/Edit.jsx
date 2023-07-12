@@ -1,28 +1,44 @@
 import { useAuthUser } from '@react-query-firebase/auth';
-import { addPost, getDetail } from 'api/posts';
+import { addPost, editPost, getDetail } from 'api/posts';
 import { auth } from 'config/firebase';
 import { POST_FORM01, POST_FORM01_ITEM02 } from 'constants/postForm';
 import useCheckbox from 'hooks/useCheckbox';
-// import useCondQuery from 'hooks/useCondQuery';
 import useInput from 'hooks/useInput';
 import React, { useEffect, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { useLocation } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import uuid from 'react-uuid';
 
 const Write = () => {
-  const editId = useLocation().search.split('postId=')[1];
-  console.log('수정 editId => ', editId);
+  const navigate = useNavigate();
 
-  const [item01, onChangeItem01Handler] = useInput();
-  const [item02CheckList, onChangeItem02CheckHandler] = useCheckbox();
-  const [item03, onChangeItem03Handler] = useInput();
-  const [item04, onChangeItem04Handler] = useInput();
-  const [item05, onChangeItem05Handler] = useInput();
+  //   const [editData, setEditData] = useState();
+
+  const param = useParams();
+  console.log('수정페이지 param => ', param);
+  const { isLoading, isError, data } = useQuery('posts', () => getDetail(param.id));
+
+  //   set;
+  //   setEditData(useQuery('posts', getDetail(param.id).data));
+  console.log('수정페이지 data=> ', data);
+
+  const [item01, onChangeItem01Handler, setItem01] = useInput();
+  const [item02CheckList, onChangeItem02CheckHandler, setItem02CheckList] = useCheckbox();
+  const [item03, onChangeItem03Handler, setItem03] = useInput();
+  const [item04, onChangeItem04Handler, setItem04] = useInput();
+  const [item05, onChangeItem05Handler, setItem05] = useInput();
+
+  useEffect(() => {
+    setItem01(data?.item01);
+    setItem02CheckList(data?.item02);
+    setItem03(data?.item03);
+    setItem04(data?.item04);
+    setItem05(data?.item05);
+  }, [data]);
 
   const queryClient = useQueryClient();
 
-  const mutation = useMutation(addPost, {
+  const mutation = useMutation(editPost, {
     onSuccess: () => {
       queryClient.invalidateQueries('posts');
     }
@@ -36,25 +52,34 @@ const Write = () => {
     let date = new Date();
     date = date.toLocaleDateString();
 
-    const newPost = {
-      id: uuid(),
-      type: 'form01',
-      date,
-      uid: authUser.data.uid,
+    const editPost = {
       item01,
       item02: item02CheckList,
       item03,
       item04,
       item05
     };
-    console.log('newPost', newPost);
+    console.log('editPost ➡️ ➡️', editPost);
+    console.log('data.id ➡️ ➡️', data.id);
 
-    mutation.mutate(newPost);
+    mutation.mutate([param.id, editPost]);
   };
+
+  if (isLoading) {
+    return <h1>로딩중입니다....!</h1>;
+  }
+
+  if (isError) {
+    return <h1>오류가 발생하였습니다..!</h1>;
+  }
+
+  if (!data) {
+    return;
+  }
 
   return (
     <>
-      <div>Write</div>
+      <div>수정페이지</div>
       <form onSubmit={handleSubmitButtonClick}>
         <div>
           <label>{POST_FORM01.item01}</label>
@@ -77,7 +102,7 @@ const Write = () => {
                   <label>
                     <input
                       type="checkbox"
-                      checked={item02CheckList.includes(title)}
+                      checked={item02CheckList?.includes(title)}
                       onChange={(e) => onChangeItem02CheckHandler(e, title)}
                       value={title}
                     />

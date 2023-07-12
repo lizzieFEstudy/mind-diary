@@ -14,6 +14,10 @@ const Main = () => {
     return <h1>오류가 발생하였습니다..!</h1>;
   }
 
+  if (!data) {
+    return;
+  }
+
   return (
     <>
       <div>Main</div>

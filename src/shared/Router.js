@@ -7,6 +7,7 @@ import Layout from './Layout';
 import Login from 'pages/Login';
 import Write from 'pages/Write';
 import Join from 'pages/Join';
+import Edit from 'pages/Edit';
 
 const Router = () => {
   console.log('✏️리렌더링: Router.js');
@@ -25,6 +26,7 @@ const Router = () => {
             {/* <Route path="2" element={<About></About>} /> */}
           </Route>
           <Route path="/detail/:id" element={<Detail />}></Route>
+          <Route path="/edit/:id" element={<Edit />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/join" element={<Join />}></Route>
           <Route path="*" element={<div>없는 페이지입니다.</div>}></Route>
