@@ -8,9 +8,15 @@ import Login from 'pages/Login';
 import Write from 'pages/Write';
 import Join from 'pages/Join';
 import Edit from 'pages/Edit';
+import AuthRoute from 'components/common/AuthRoute';
+import { useAuthUser } from '@react-query-firebase/auth';
+import { auth } from 'config/firebase';
+import NotFound from 'pages/NotFound';
 
 const Router = () => {
-  console.log('✏️리렌더링: Router.js');
+  // console.log('✏️리렌더링: Router.js');
+
+  const user = useAuthUser('user', auth);
 
   return (
     <BrowserRouter>
@@ -18,18 +24,14 @@ const Router = () => {
       <Layout>
         <Routes>
           <Route path="/" element={<Main />}></Route>
-          {/* <Route path="/write" element={<Write />}></Route> */}
-          {/* <Route path="/write?test=t" element={<h1>test</h1>}></Route> */}
-          {/* <Route path="/write/1" element={<h1>test2</h1>}></Route> */}
-          <Route path="/write" element={<Write />}>
-            <Route path="1" element={<div>1test</div>} />
-            {/* <Route path="2" element={<About></About>} /> */}
-          </Route>
-          <Route path="/detail/:id" element={<Detail />}></Route>
-          <Route path="/edit/:id" element={<Edit />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/join" element={<Join />}></Route>
-          <Route path="*" element={<div>없는 페이지입니다.</div>}></Route>
+
+          <Route path="/write" element={<AuthRoute component={<Write />} authenticated={user} />} />
+          <Route path="/detail/:id" element={<Detail />}></Route>
+          <Route path="/edit/:id" element={<AuthRoute component={<Edit />} authenticated={user} />} />
+
+          <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </Layout>
     </BrowserRouter>

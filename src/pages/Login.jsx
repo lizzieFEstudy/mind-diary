@@ -20,14 +20,12 @@ const Login = () => {
       navigate('/');
     },
     onError: (error) => {
-      // alert(error.code);
       alert(ERROR_CODE[error.code]);
     }
   });
 
   const signIn = async (event) => {
     event.preventDefault();
-
     mutation.mutate({ email, password });
   };
 

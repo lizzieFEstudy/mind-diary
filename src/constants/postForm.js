@@ -6,7 +6,7 @@ export const POST_FORM01 = {
   item05: '지금 기분은 어때요?'
 };
 
-export const POST_FORM01_ITEM02 = [
+export const POST_FORM01_ITEM02_OPTIONS = [
   {
     title: '상황을 최악으로 인식하기',
     desc: '최악의 상황이 일어나면 어떡하지?'

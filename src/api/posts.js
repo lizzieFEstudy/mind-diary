@@ -20,14 +20,14 @@ const addPost = async (newPost) => {
 };
 
 // 수정
-const editPost = async ([id, newPost]) => {
-  console.log('api 테스트 ➡️=> ', id, newPost);
-  await axios.patch(`${process.env.REACT_APP_SERVER_URL}/posts/b71f0531-a438-a6de-526e-3e16f6710538`, newPost);
+const updatePost = async ([id, newPost]) => {
+  const response = await axios.patch(`${process.env.REACT_APP_SERVER_URL}/posts/${id}`, newPost);
+  console.log('response ➡️=> ', response);
 };
 
 // 삭제
 const delPost = async (id) => {
-  await axios.delete(`${process.env.REACT_APP_SERVER_URL}/posts/b71f0531-a438-a6de-526e-3e16f6710538`);
+  await axios.delete(`${process.env.REACT_APP_SERVER_URL}/posts/${id}`);
 };
 
-export { getPosts, getDetail, addPost, editPost, delPost };
+export { getPosts, getDetail, addPost, updatePost, delPost };
