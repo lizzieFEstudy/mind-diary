@@ -9,7 +9,6 @@ const PostItem = ({ item }) => {
       <Link to={`/detail/${item.id}`}>
         <strong>{item.content.item01}</strong>
         <span>{item.regdate}</span>
-        <span>{item.writer}</span>
       </Link>
     </Post>
   );

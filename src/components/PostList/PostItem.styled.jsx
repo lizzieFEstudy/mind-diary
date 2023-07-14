@@ -48,6 +48,13 @@ export const StyledPost = styled.li`
       border: 1px solid rgba(0, 0, 0, 0.03);
       box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.05);
     }
+
+    span {
+      display: block;
+      margin-top: 16px;
+      font-size: 18px;
+      font-weight: 400;
+    }
   }
 
   &:hover a {

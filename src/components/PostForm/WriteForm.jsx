@@ -33,7 +33,7 @@ const WriteForm = () => {
     event.preventDefault();
 
     let date = new Date();
-    date = date.toLocaleDateString();
+    date = date.toLocaleString();
 
     const newPost = {
       type: 'form01',

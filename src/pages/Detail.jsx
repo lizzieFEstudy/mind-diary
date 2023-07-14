@@ -6,7 +6,6 @@ const Detail = () => {
 
   return (
     <>
-      <div>Detail</div>
       <ViewForm />
     </>
   );
