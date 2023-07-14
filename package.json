@@ -7,6 +7,8 @@
     "@react-query-firebase/firestore": "^1.0.0-dev.7",
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.4.0",
+    "dotenv": "^16.3.1",
+    "env-cmd": "^10.1.0",
     "firebase": "^9.23.0",
     "json-server": "^0.17.3",
     "react": "^18.2.0",
@@ -20,6 +22,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:prod": "env-cmd -f .env react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
