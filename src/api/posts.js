@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // 조회
 const getPosts = async () => {
-  const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/posts`);
+  const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/posts?_sort=regdate&_order=desc`);
 
   return response.data;
 };

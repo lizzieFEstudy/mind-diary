@@ -1,4 +1,6 @@
 import { delPost, getDetail } from 'api/posts';
+import * as S from './WriteForm.styled';
+import { Button, ButtonBox } from 'components/common/Button';
 import Loading from 'components/common/Loading';
 import { POST_FORM01 } from 'constants/postForm';
 import React from 'react';
@@ -34,40 +36,74 @@ const ViewForm = () => {
   }
 
   return (
-    <div>
+    <S.FormBox>
       <div>
-        <div>
-          <label>{POST_FORM01.item01}</label>
+        <S.FormRow>
+          <label>
+            <S.StepNum>STEP 01. </S.StepNum>
+            {POST_FORM01.item01}
+          </label>
           <div>{data.content.item01}</div>
-        </div>
-        <div>
-          <label>{POST_FORM01.item02}</label>
-          <div>{data.content.item02}</div>
-        </div>
-        <div>
-          <label>{POST_FORM01.item03}</label>
+        </S.FormRow>
+        <S.FormRow>
+          <label>
+            <S.StepNum>STEP 02. </S.StepNum>
+            {POST_FORM01.item02}
+          </label>
+          <div>
+            <ul>
+              {data.content.item02.map((item) => {
+                return <li>{item}</li>;
+              })}{' '}
+            </ul>
+          </div>
+        </S.FormRow>
+        <S.FormRow>
+          <label>
+            <S.StepNum>STEP 03. </S.StepNum>
+            {POST_FORM01.item03}
+          </label>
           <div>{data.content.item03}</div>
-        </div>
+        </S.FormRow>
+        <S.FormRow>
+          <label>
+            <S.StepNum>STEP 04. </S.StepNum>
+            {POST_FORM01.item04}
+          </label>
+          <div>{data.content.item04}</div>
+        </S.FormRow>
+        <S.FormRow>
+          <label>
+            <S.StepNum>STEP 05. </S.StepNum>
+            {POST_FORM01.item05}
+          </label>
+          <div>{data.content.item05}</div>
+        </S.FormRow>
       </div>
 
-      <div>
-        <button
+      <ButtonBox>
+        <Button
+          $variant="secondary"
+          $size="lg"
           onClick={() => {
             navigate(-1);
           }}
         >
           뒤로가기
-        </button>
-        <button
+        </Button>
+        <Button
+          $size="lg"
           onClick={() => {
             navigate(`/edit/${param.id}`);
           }}
         >
           수정
-        </button>
-        <button onClick={handleDeleteButtonClick}>삭제</button>
-      </div>
-    </div>
+        </Button>
+        <Button $variant="secondary" $size="lg" onClick={handleDeleteButtonClick}>
+          삭제
+        </Button>
+      </ButtonBox>
+    </S.FormBox>
   );
 };
 

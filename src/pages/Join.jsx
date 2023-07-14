@@ -1,3 +1,6 @@
+import { JoinBox, JoinRow } from 'components/User/Join.styled';
+import { Button, ButtonBox } from 'components/common/Button';
+import { Input } from 'components/common/Input';
 import { isPassword } from 'components/common/validator';
 import { auth, storage } from 'config/firebase';
 import { DEFAULT_URL } from 'constants/user';
@@ -6,7 +9,6 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import useInput from 'hooks/useInput';
 import React, { useCallback, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { isInputed, setDocumentTitle, isCheck, isEmail, isPassword } from 'utils';
 
 const Join = () => {
   const navigate = useNavigate();
@@ -137,52 +139,67 @@ const Join = () => {
   };
 
   return (
-    <>
-      <h1>Join</h1>
+    <JoinBox>
       <form>
-        <div>
+        <JoinRow>
           <label>이메일</label>
-          <input type="email" value={email} name="email" onChange={handleChange} required></input>
-          <small>info: {emailError}</small>
-        </div>
-        <div>
+          <div>
+            <Input type="email" value={email} name="email" onChange={handleChange} required />
+            <small>{emailError}</small>
+          </div>
+        </JoinRow>
+        <JoinRow>
           <label>비밀번호</label>
-          <input
-            type="password"
-            ref={passwordRef}
-            value={password}
-            name="password"
-            onChange={handleChange}
-            required
-          ></input>
-          <small>info: {passWordError}</small>
-        </div>
-        <div>
+          <div>
+            <Input
+              type="password"
+              ref={passwordRef}
+              value={password}
+              name="password"
+              onChange={handleChange}
+              placeholder="영문, 숫자 조합 8자리 이상 입력"
+              required
+            />
+            <small>{passWordError}</small>
+          </div>
+        </JoinRow>
+        <JoinRow>
           <label>비밀번호 확인</label>
-          <input
-            type="password"
-            ref={passwordConfirmRef}
-            value={passwordConfirm}
-            name="passwordConfirm"
-            onChange={handleChange}
-            required
-          ></input>
-          <small>info: {passwordConfirmError}</small>
-        </div>
+          <div>
+            <Input
+              type="password"
+              ref={passwordConfirmRef}
+              value={passwordConfirm}
+              name="passwordConfirm"
+              onChange={handleChange}
+              placeholder="비밀번호 확인"
+              required
+            />
+            <small>{passwordConfirmError}</small>
+          </div>
+        </JoinRow>
 
-        <div>
+        <JoinRow>
           <label>닉네임</label>
-          <input type="text" value={nickname} name="nickname" onChange={onChangeNicknameHandler}></input>
+          <div>
+            <Input type="text" value={nickname} name="nickname" onChange={onChangeNicknameHandler} />
+          </div>
           {/* <small>info: {nicknameConfirmError}</small> */}
-        </div>
-        <div>
+        </JoinRow>
+        <JoinRow>
           <label>프로필사진</label>
-          <input type="file" onChange={handleFileSelect} />
-          <img src={previewImg} alt="프로필 사진" />
-        </div>
-        <button onClick={signUp}>회원가입</button>
+          <div>
+            <input type="file" onChange={handleFileSelect} />
+            <div>
+              <img src={previewImg} alt="프로필 사진" />
+            </div>
+          </div>
+        </JoinRow>
+        <ButtonBox>
+          <Button onClick={signUp}>회원가입</Button>
+        </ButtonBox>
       </form>
-    </>
+    </JoinBox>
   );
 };
 
