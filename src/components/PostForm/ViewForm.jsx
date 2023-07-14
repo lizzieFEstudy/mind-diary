@@ -6,11 +6,16 @@ import { POST_FORM01 } from 'constants/postForm';
 import React from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useNavigate, useParams } from 'react-router';
+import { useAuthUser } from '@react-query-firebase/auth';
+import { auth } from 'config/firebase';
 
 const ViewForm = () => {
   const navigate = useNavigate();
 
   const param = useParams();
+
+  const queryUser = useAuthUser('user', auth);
+
   const { isLoading, isError, data } = useQuery(['posts', param.id], async () => await getDetail(param.id));
 
   const queryClient = useQueryClient();
@@ -27,7 +32,7 @@ const ViewForm = () => {
     mutation.mutate(param.id);
   };
 
-  if (isLoading) {
+  if (isLoading || queryUser.isLoading) {
     return <Loading />;
   }
 
@@ -52,8 +57,8 @@ const ViewForm = () => {
           </label>
           <div>
             <ul>
-              {data.content.item02.map((item) => {
-                return <li>{item}</li>;
+              {data.content.item02.map((item, i) => {
+                return <li key={`${(item, i)}`}>{item}</li>;
               })}{' '}
             </ul>
           </div>
@@ -91,17 +96,21 @@ const ViewForm = () => {
         >
           뒤로가기
         </Button>
-        <Button
-          $size="lg"
-          onClick={() => {
-            navigate(`/edit/${param.id}`);
-          }}
-        >
-          수정
-        </Button>
-        <Button $variant="secondary" $size="lg" onClick={handleDeleteButtonClick}>
-          삭제
-        </Button>
+        {queryUser.data.uid == data.writer ? (
+          <>
+            <Button
+              $size="lg"
+              onClick={() => {
+                navigate(`/edit/${param.id}`);
+              }}
+            >
+              수정
+            </Button>
+            <Button $variant="secondary" $size="lg" onClick={handleDeleteButtonClick}>
+              삭제
+            </Button>
+          </>
+        ) : null}
       </ButtonBox>
     </S.FormBox>
   );
