@@ -1,4 +1,7 @@
 import { useAuthSignInWithEmailAndPassword } from '@react-query-firebase/auth';
+import { LoginBox } from 'components/User/Login.styled';
+import { Button } from 'components/common/Button';
+import { Input } from 'components/common/Input';
 import { auth } from 'config/firebase';
 import useInput from 'hooks/useInput';
 import React from 'react';
@@ -20,32 +23,45 @@ const Login = () => {
       navigate('/');
     },
     onError: (error) => {
-      // alert(error.code);
       alert(ERROR_CODE[error.code]);
     }
   });
 
   const signIn = async (event) => {
     event.preventDefault();
-
     mutation.mutate({ email, password });
   };
 
   return (
     <>
-      <h1>Login</h1>
-      <form>
-        <div>
-          <label>아이디</label>
-          <input type="email" value={email} name="email" onChange={onChangeEmailHandler} required></input>
-        </div>
-        <div>
-          <label>비밀번호</label>
-          <input type="password" value={password} name="password" onChange={onChangePasswordHandler} required></input>
-        </div>
-        <button onClick={signIn}>로그인</button>
-        <Link to="/join">회원가입</Link>
-      </form>
+      <LoginBox>
+        <form>
+          <div>
+            <Input
+              type="email"
+              value={email}
+              name="email"
+              onChange={onChangeEmailHandler}
+              placeholder="이메일"
+              required
+            ></Input>
+          </div>
+          <div>
+            <Input
+              type="password"
+              value={password}
+              name="password"
+              onChange={onChangePasswordHandler}
+              placeholder="비밀번호"
+              required
+            ></Input>
+          </div>
+          <Button $size="lg" onClick={signIn}>
+            로그인
+          </Button>
+          <Link to="/join">회원가입</Link>
+        </form>
+      </LoginBox>
     </>
   );
 };

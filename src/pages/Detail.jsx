@@ -1,7 +1,15 @@
+import ViewForm from 'components/PostForm/ViewForm';
 import React from 'react';
 
 const Detail = () => {
-  return <div>Detail</div>;
+  // console.log('✏️리렌더링: Detail.jsx');
+
+  return (
+    <>
+      <div>Detail</div>
+      <ViewForm />
+    </>
+  );
 };
 
 export default Detail;

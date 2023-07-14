@@ -1,11 +1,11 @@
-import WriteForm from 'components/PostForm/WriteForm';
+import EditForm from 'components/PostForm/EditForm';
 import React from 'react';
 
 const Write = () => {
   return (
     <>
-      <div>Write</div>
-      <WriteForm />
+      <div>수정페이지</div>
+      <EditForm />
     </>
   );
 };
