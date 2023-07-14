@@ -4,6 +4,12 @@
 
 - react-router-dom
 - styled-components
-- react-redux
-- @reduxjs/toolkit
+<!-- - react-redux
+- @reduxjs/toolkit -->
 - firebase
+- react-query
+- @react-query-firebase/firestore
+- @react-query-firebase/auth
+- json-server
+<!-- - react-uuid -->
+- axios
