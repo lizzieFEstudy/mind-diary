@@ -96,7 +96,7 @@ const ViewForm = () => {
         >
           뒤로가기
         </Button>
-        {queryUser.data.uid == data.writer ? (
+        {queryUser.data && queryUser.data.uid == data.writer ? (
           <>
             <Button
               $size="lg"
