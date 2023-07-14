@@ -1,11 +1,10 @@
-import WriteForm from 'components/PostForm/WriteForm';
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 
 const Write = () => {
   return (
     <>
-      <div>Write</div>
-      <WriteForm />
+      <Outlet />
     </>
   );
 };

@@ -2,12 +2,14 @@ import { useAuthUser } from '@react-query-firebase/auth';
 import { Button } from 'components/common/Button';
 import { auth } from 'config/firebase';
 import { signOut } from 'firebase/auth';
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 const Header = () => {
   const navigate = useNavigate();
+
+  const [isActive, setIsActive] = useState(false);
 
   const { isLoading, isError, data } = useAuthUser('user', auth);
 
@@ -34,10 +36,40 @@ const Header = () => {
       </h1>
       {data ? (
         <>
+          <nav>
+            <ul>
+              <li>
+                <NavLink to={'/'} activeClassName="active">
+                  모두의 이야기
+                </NavLink>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  onClick={() => {
+                    alert(
+                      '현재 페이지는 준비중입니다. \n빠른 시일내에 서비스를 제공할 수 있도록 노력하겠습니다. 감사합니다.'
+                    );
+                  }}
+                >
+                  내 이야기
+                </a>
+              </li>
+            </ul>
+          </nav>
           <S.ProfileImgBoxSM>
             <img src={data.photoURL} alt="프로필 사진" />
           </S.ProfileImgBoxSM>
-          {data.displayName}님 안녕하세요!
+          <Link
+            onClick={() => {
+              alert(
+                '현재 페이지는 준비중입니다. \n빠른 시일내에 서비스를 제공할 수 있도록 노력하겠습니다. 감사합니다.'
+              );
+            }}
+          >
+            {data.displayName}
+          </Link>
+
           <Button $variant="secondary" onClick={logOut}>
             로그아웃
           </Button>
@@ -57,7 +89,7 @@ const Header = () => {
       <Button
         onClick={(event) => {
           event.preventDefault();
-          navigate('/write');
+          navigate('/write/intro');
         }}
       >
         새 글 쓰기
@@ -76,8 +108,28 @@ export const S = {
 
     h1 {
       margin-right: auto;
-      font-size: 22px;
+      font-size: 24px;
       font-weight: 600;
+    }
+
+    nav {
+      flex: none;
+      margin-right: auto;
+
+      ul {
+        display: flex;
+        flex-direction: row;
+        gap: 32px;
+
+        li > a {
+          font-size: 20px;
+
+          &.active {
+            font-weight: 600;
+            color: #82c722;
+          }
+        }
+      }
     }
   `,
   ProfileImgBoxSM: styled.div`

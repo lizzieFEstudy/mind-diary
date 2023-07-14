@@ -90,6 +90,7 @@ const StyledButton = styled.button`
     cursor: default;
     opacity: 0.5;
     background: var(--button-bg-color, #000);
+    color: var(--button-hover-color, #fff);
   }
 `;
 
